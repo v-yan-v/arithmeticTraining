@@ -1,24 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from 'react';
+import {Settings} from "./components/Settings/Settings";
+import {ProblemsViewer} from "./components/ProblemsViewer/ProblemsViewer";
+import './App.scss'
+import {defaultAppSettings} from "./constantsAndDefaults";
 
 function App() {
+
+  let [localAppSettings, setLocalAppSettings] = useState(JSON.parse(localStorage.getItem('simple-math-problems-settings')) || defaultAppSettings )
+
+  useEffect(()=>{
+    localStorage.setItem('simple-math-problems-settings', JSON.stringify(localAppSettings))
+    }, [localAppSettings])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'>
+      <Settings localAppSettings={localAppSettings} setLocalAppSettings={setLocalAppSettings} />
+      <ProblemsViewer localAppSettings={localAppSettings} />
     </div>
   );
 }
