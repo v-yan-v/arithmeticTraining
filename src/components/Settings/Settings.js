@@ -11,13 +11,6 @@ export const Settings = ({localAppSettings, setLocalAppSettings}) => {
     const name = e.target.name
     let value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
 
-    if (name === 'numberOfProblemsPerPage' && value > 100){
-      value = 100
-    }
-    else if (name === 'numberOfProblemsPerPage' && value < 5){
-      value = 5
-    }
-
     setLocalAppSettings({
       ...localAppSettings
       , [name]: value
@@ -58,6 +51,20 @@ export const Settings = ({localAppSettings, setLocalAppSettings}) => {
       collapseBlock.classList.add('show')
       e.target.setAttribute('aria-expanded', 'true')
     }
+  }
+
+  // in React onChange and onInput are the same, so I do this onBlur
+  const fixInputedChanges = (e) => {
+    const name = e.target.name
+    let value = e.target.value
+
+    if (name === 'numberOfProblemsPerPage' && value > 100){
+      value = 100
+    }
+    else if (name === 'numberOfProblemsPerPage' && value < 5){
+      value = 5
+    }
+    handleSettingChanges({target: {type: 'number', name, value }})
   }
 
 
@@ -194,7 +201,8 @@ export const Settings = ({localAppSettings, setLocalAppSettings}) => {
                 {/*<label htmlFor="numberOfProblemsPerPage"> Количество примеров на странице </label>*/}
                 <input type="number" id='numberOfProblemsPerPage' name='numberOfProblemsPerPage'
                        className={cn(currentColorTheme, 'short-number-field')} value={localAppSettings.numberOfProblemsPerPage}
-                       onChange={handleSettingChanges}/>
+                       onChange={handleSettingChanges} onBlur={fixInputedChanges}/>
+
 
               </fieldset>
             </div>

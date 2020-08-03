@@ -1,8 +1,7 @@
-
 export const defaultAppSettings = {
-    minOperandValue: 0
-  , maxOperandValue: 50
-  , useAddition: true
+  minOperandValue                  : 0
+  , maxOperandValue                : 50
+  , useAddition                    : true
   , useSubtraction                 : true
   , useMultiplication              : false
   , useDivision                    : false
