@@ -20,18 +20,19 @@ export const Problem = ({localAppSettings, classList}) => {
     return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
   }
 
-  const getRandomArbitraryInclusive = (min, max) => {
+  const getRandomNumber = (min, max) => {
 
     if (min > max) {
       [min, max] = [max, min] // swap values
     }
 
-    return Math.floor(Math.random() * (max - min + 1)) + min
+    return Math.random() * (max - min) + min
   }
 
-  const operand = () => {
+  const newOperand = () => {
+    let operand = 1
     if (localAppSettings.useDecimalFractions && !localAppSettings.useCommonFractions) {
-      return getRandomArbitraryInclusive(localAppSettings.minOperandValue, localAppSettings.maxOperandValue)
+      operand =  getRandomNumber(localAppSettings.minOperandValue, localAppSettings.maxOperandValue)
     }
     else if (!localAppSettings.useDecimalFractions && localAppSettings.useCommonFractions){
 
@@ -40,8 +41,12 @@ export const Problem = ({localAppSettings, classList}) => {
 
     }
     else {
-      return getRandomIntInclusive(localAppSettings.minOperandValue, localAppSettings.maxOperandValue)
+      operand =  getRandomIntInclusive(localAppSettings.minOperandValue, localAppSettings.maxOperandValue)
     }
+
+    operand = +(operand.toFixed(3).replace(/\.?0+$/, ''))
+
+    return operand
   }
 
   const generateProblem = () => {
@@ -64,36 +69,34 @@ export const Problem = ({localAppSettings, classList}) => {
 
     let operationIndex = getRandomOperation()
 
-    let op1 = operand()
-    let op2 = operand()
+    let op1 = newOperand()
+    let op2 = newOperand()
     let problem = {
       problem: null
       , answer: null
     }
 
-    let tmp = ''
-
     switch (operationIndex) {
       case 1:
-        problem.answer = (op1 - op2).toFixed(3)
+        problem.answer = op1 - op2
         problem.problem = `${op1} - ${op2} = `
         break
       case 2:
-        problem.answer = (op1 * op2).toFixed(3)
+        problem.answer = op1 * op2
         problem.problem = `${op1} * ${op2} = `
         break
       case 3:
-        problem.answer = (op1 / op2).toFixed(3)
+        problem.answer = op1 / op2
         problem.problem = `${op1} / ${op2} = `
         break
       case 0:
       default:
-        problem.answer = (op1 + op2).toFixed(3)
+        problem.answer = op1 + op2
         problem.problem = `${op1} + ${op2} = `
     }
 
     // remove unnecessary zeros
-    problem.answer = problem.answer.replace(/\.?0+$/, '')
+    problem.answer = problem.answer.toFixed(3).replace(/\.?0+$/, '')
 
     return problem
   }
