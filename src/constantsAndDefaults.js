@@ -1,10 +1,12 @@
 export const defaultAppSettings = {
   minOperandValue                  : 0
   , maxOperandValue                : 50
-  , useAddition                    : true
-  , useSubtraction                 : true
-  , useMultiplication              : false
-  , useDivision                    : false
+  , useOperations                  : {
+      useAddition      : true
+    , useSubtraction   : true
+    , useMultiplication: false
+    , useDivision      : false
+  }
   , groupByOperations              : false
   , useDecimalFractions            : false
   , useCommonFractions             : false

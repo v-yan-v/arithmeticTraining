@@ -12,8 +12,11 @@ function App() {
     localStorage.setItem('simple-math-problems-settings', JSON.stringify(localAppSettings))
     }, [localAppSettings])
 
+
+  let currentColorTheme = localAppSettings.isColorThemeDark ? 'bg-dark text-info' : 'bg-light text-dark'
+
   return (
-    <div className='container'>
+    <div className={'container' + ' ' + currentColorTheme}>
       <Settings localAppSettings={localAppSettings} setLocalAppSettings={setLocalAppSettings} />
       <ProblemsViewer localAppSettings={localAppSettings} />
     </div>

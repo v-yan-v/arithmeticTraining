@@ -8,8 +8,14 @@ export const Settings = ({localAppSettings, setLocalAppSettings}) => {
   let currentColorTheme = localAppSettings.isColorThemeDark ? 'bg-dark text-info' : 'bg-light text-dark'
 
   function handleSettingChanges(e) {
-    const name = e.target.name
+    let name = e.target.name
     let value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+
+    // switch operations
+    if (name === 'useAddition' || name === 'useSubtraction' || name === 'useMultiplication' || name === 'useDivision') {
+      value = {...localAppSettings.useOperations, [name]: value}
+      name = 'useOperations'
+    }
 
     setLocalAppSettings({
       ...localAppSettings
@@ -91,14 +97,14 @@ export const Settings = ({localAppSettings, setLocalAppSettings}) => {
                   <div className='col'>
                     <div className="custom-control custom-checkbox">
                       <input id='useAddition' className='custom-control-input' type="checkbox" name='useAddition'
-                             checked={localAppSettings.useAddition || ''} onChange={handleSettingChanges}/>
+                             checked={localAppSettings.useOperations.useAddition || ''} onChange={handleSettingChanges}/>
                       <label className="custom-control-label" htmlFor='useAddition'
                              role='button'>Сложение&nbsp;+ </label>
                     </div>
 
                     <div className="custom-control custom-checkbox">
                       <input id='useSubtraction' className='custom-control-input' type="checkbox" name='useSubtraction'
-                             checked={localAppSettings.useSubtraction || ''} onChange={handleSettingChanges}/>
+                             checked={localAppSettings.useOperations.useSubtraction || ''} onChange={handleSettingChanges}/>
                       <label className="custom-control-label" htmlFor='useSubtraction'
                              role='button'>Вычитание&nbsp;- </label>
                     </div>
@@ -110,7 +116,7 @@ export const Settings = ({localAppSettings, setLocalAppSettings}) => {
 
                     <div className="custom-control custom-checkbox">
                       <input id='useMultiplication' className='custom-control-input' type="checkbox"
-                             name='useMultiplication' checked={localAppSettings.useMultiplication || ''}
+                             name='useMultiplication' checked={localAppSettings.useOperations.useMultiplication || ''}
                              onChange={handleSettingChanges}/>
                       <label className="custom-control-label" htmlFor='useMultiplication'
                              role='button'>Умножение&nbsp;× </label>
@@ -118,7 +124,7 @@ export const Settings = ({localAppSettings, setLocalAppSettings}) => {
 
                     <div className="custom-control custom-checkbox">
                       <input id='useDivision' className='custom-control-input' type="checkbox" name='useDivision'
-                             checked={localAppSettings.useDivision || ''} onChange={handleSettingChanges}/>
+                             checked={localAppSettings.useOperations.useDivision || ''} onChange={handleSettingChanges}/>
                       <label className="custom-control-label" htmlFor='useDivision'
                              role='button'>Деление&nbsp;÷ </label>
                     </div>
