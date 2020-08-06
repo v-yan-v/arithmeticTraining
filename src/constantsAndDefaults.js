@@ -16,4 +16,5 @@ export const defaultAppSettings = {
   , displayAsRussianAlphabetNumbers: false
   , isColorThemeDark               : true
   , problemsTextSize               : 1
+  , appVersion                     : '0.1.3'
 }
