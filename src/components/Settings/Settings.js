@@ -245,11 +245,11 @@ export const Settings = ({localAppSettings, setLocalAppSettings}) => {
                 <legend>Размер текста примеров</legend>
 
                 <div className="input-group">
-                  <input type="text" className={cn('form-control', s.shortinput, currentColorTheme)} readOnly id='problemsTextSize'
+                  <input type="text" className={cn('form-control', s.shortInput, currentColorTheme)} readOnly id='problemsTextSize'
                          value={localAppSettings.problemsTextSize} onChange={handleSettingChanges}/>
                   <div className="input-group-append">
-                    <button className="btn btn-outline-secondary" onClick={changeFontSize}>+</button>
                     <button className="btn btn-outline-secondary" onClick={changeFontSize}>-</button>
+                    <button className="btn btn-outline-secondary" onClick={changeFontSize}>+</button>
                   </div>
                 </div>
 

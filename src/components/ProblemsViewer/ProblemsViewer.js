@@ -10,7 +10,7 @@ export const ProblemsViewer = ({localAppSettings}) => {
 
 
   return (
-    <div className={s.flexContainer}>
+    <div className={s.flexContainer} style={{fontSize: (localAppSettings.problemsTextSize * 0.2 + 1) + 'em'}}>
       { problemsList.map((_, i) => {
         return <Problem key={i} localAppSettings={localAppSettings} classList={s.flexItem} />
       }) }
