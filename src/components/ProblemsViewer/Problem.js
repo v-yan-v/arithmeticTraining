@@ -110,9 +110,11 @@ export const Problem = ({localAppSettings, classList}) => {
 
   return (
     <div className={classList} >
-      {tmp.problem}
-      {tmp.answer}
-      {localAppSettings.inputsForTestAnswer ? answerField : ''}
+      <div className={s.answerLine}>
+        {tmp.problem}
+        {tmp.answer}
+        {localAppSettings.inputsForTestAnswer ? answerField : ''}
+      </div>
     </div>
   )
 }
