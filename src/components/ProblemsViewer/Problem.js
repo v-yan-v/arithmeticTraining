@@ -111,8 +111,8 @@ export const Problem = ({localAppSettings, classList}) => {
   return (
     <div className={classList} >
       <div className={s.answerLine}>
-        {tmp.problem}
-        {tmp.answer}
+        <span>{tmp.problem}</span>
+        <span className={localAppSettings.showAnswerOnHover ? s.showRightAnswer : s.rightAnswer} >{tmp.answer}</span>
         {localAppSettings.inputsForTestAnswer ? answerField : ''}
       </div>
     </div>
