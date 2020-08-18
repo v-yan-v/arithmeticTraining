@@ -10,16 +10,29 @@ export const Settings = ({localAppSettings, setLocalAppSettings}) => {
   function handleSettingChanges(e) {
     let name = e.target.name
     let value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+    let changes = {}
 
-    // switch operations
-    if (name === 'useAddition' || name === 'useSubtraction' || name === 'useMultiplication' || name === 'useDivision') {
-      value = {...localAppSettings.useOperations, [name]: value}
-      name = 'useOperations'
+    changes[name] = value
+
+    if (name === 'displayNumbersInCyrillicNotation'){
+      changes.useDecimalFractions = false
+      changes.useCommonFractions = false
     }
+
+    if (name === 'useDecimalFractions'){
+      changes.useCommonFractions = false
+      changes.displayNumbersInCyrillicNotation = false
+    }
+
+    if (name === 'useCommonFractions'){
+      changes.useDecimalFractions = false
+      changes.displayNumbersInCyrillicNotation = false
+    }
+
 
     setLocalAppSettings({
       ...localAppSettings
-      , [name]: value
+      , ...changes
     })
 
   }
@@ -97,14 +110,14 @@ export const Settings = ({localAppSettings, setLocalAppSettings}) => {
                   <div className='col'>
                     <div className="custom-control custom-checkbox">
                       <input id='useAddition' className='custom-control-input' type="checkbox" name='useAddition'
-                             checked={localAppSettings.useOperations.useAddition || ''} onChange={handleSettingChanges}/>
+                             checked={localAppSettings.useAddition || ''} onChange={handleSettingChanges}/>
                       <label className="custom-control-label" htmlFor='useAddition'
                              role='button'>Сложение&nbsp;+ </label>
                     </div>
 
                     <div className="custom-control custom-checkbox">
                       <input id='useSubtraction' className='custom-control-input' type="checkbox" name='useSubtraction'
-                             checked={localAppSettings.useOperations.useSubtraction || ''} onChange={handleSettingChanges}/>
+                             checked={localAppSettings.useSubtraction || ''} onChange={handleSettingChanges}/>
                       <label className="custom-control-label" htmlFor='useSubtraction'
                              role='button'>Вычитание&nbsp;- </label>
                     </div>
@@ -116,7 +129,7 @@ export const Settings = ({localAppSettings, setLocalAppSettings}) => {
 
                     <div className="custom-control custom-checkbox">
                       <input id='useMultiplication' className='custom-control-input' type="checkbox"
-                             name='useMultiplication' checked={localAppSettings.useOperations.useMultiplication || ''}
+                             name='useMultiplication' checked={localAppSettings.useMultiplication || ''}
                              onChange={handleSettingChanges}/>
                       <label className="custom-control-label" htmlFor='useMultiplication'
                              role='button'>Умножение&nbsp;× </label>
@@ -124,7 +137,7 @@ export const Settings = ({localAppSettings, setLocalAppSettings}) => {
 
                     <div className="custom-control custom-checkbox">
                       <input id='useDivision' className='custom-control-input' type="checkbox" name='useDivision'
-                             checked={localAppSettings.useOperations.useDivision || ''} onChange={handleSettingChanges}/>
+                             checked={localAppSettings.useDivision || ''} onChange={handleSettingChanges}/>
                       <label className="custom-control-label" htmlFor='useDivision'
                              role='button'>Деление&nbsp;÷ </label>
                     </div>
@@ -132,14 +145,14 @@ export const Settings = ({localAppSettings, setLocalAppSettings}) => {
                   </div>
                 </div>
 
-                <div className="custom-control custom-checkbox">
-                  <input id='groupByOperations' className='custom-control-input' type="checkbox"
-                         name='groupByOperations' disabled aria-disabled
-                         checked={localAppSettings.groupByOperations || ''}
-                         onChange={handleSettingChanges}/>
-                  <label className="custom-control-label" htmlFor='checkboxDiv' role='button'>Группировать примеры по
-                    операциям</label>
-                </div>
+                {/*<div className="custom-control custom-checkbox">*/}
+                {/*  <input id='groupByOperations' className='custom-control-input' type="checkbox"*/}
+                {/*         name='groupByOperations' disabled aria-disabled*/}
+                {/*         checked={localAppSettings.groupByOperations || ''}*/}
+                {/*         onChange={handleSettingChanges}/>*/}
+                {/*  <label className="custom-control-label" htmlFor='checkboxDiv' role='button'>Группировать примеры по*/}
+                {/*    операциям</label>*/}
+                {/*</div>*/}
 
               </fieldset>
 
@@ -269,12 +282,12 @@ export const Settings = ({localAppSettings, setLocalAppSettings}) => {
 
 
                 <div className="custom-control custom-checkbox">
-                  <input type="displayAsRussianAlphabetNumbers" id='displayAsRussianAlphabetNumbers'
+                  <input type="checkbox" id='displayNumbersInCyrillicNotation'
                          className='custom-control-input'
-                         name='displayAsRussianAlphabetNumbers'
-                         checked={localAppSettings.displayAsRussianAlphabetNumbers} onChange={handleSettingChanges}/>
-                  <label htmlFor="displayAsRussianAlphabetNumbers" className='custom-control-label' role='button'>Отображать
-                    числа числительными русского алфавита</label>
+                         name='displayNumbersInCyrillicNotation'
+                         checked={localAppSettings.displayNumbersInCyrillicNotation} onChange={handleSettingChanges}/>
+                  <label htmlFor="displayNumbersInCyrillicNotation" className='custom-control-label' role='button'>Отображать
+                    числа кириллицей</label>
                 </div>
               </fieldset>
             </div>

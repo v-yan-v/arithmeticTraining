@@ -16,7 +16,14 @@ export const ProblemsViewer = ({localAppSettings}) => {
     , maxOperandValue    : localAppSettings.maxOperandValue
     , useDecimalFractions: localAppSettings.useDecimalFractions
     , useCommonFractions : localAppSettings.useCommonFractions
-    , useOperations      : localAppSettings.useOperations
+    , useOperations      :
+    {
+        useAddition      : localAppSettings.useAddition
+      , useSubtraction   : localAppSettings.useSubtraction
+      , useMultiplication: localAppSettings.useMultiplication
+      , useDivision      : localAppSettings.useDivision
+    }
+    , inCyrillicNotation : localAppSettings.displayNumbersInCyrillicNotation
   }
 
   let [checkAnswer, toggleChekAnswer] = useState(false)
