@@ -1,0 +1,21 @@
+
+.cyrillicNumber {
+  //font-size: 2.5rem;
+  position: relative;
+  width: max-content;
+}
+
+.cyrillicNumber:before {
+  background: linear-gradient(to top right, transparent 46%, var(--dark) 46%, var(--dark) 55%, transparent 55%),
+  linear-gradient(90deg,  var(--dark) 2%,  transparent 2%, transparent 98%, var(--dark) 98% );
+  content: '';
+  height: 0.2em;
+  position: absolute;
+  top: 0.1em;
+  width: 100%;
+}
+
+.cyrillicNumber.dark:before {
+  background: linear-gradient(to top right, transparent 46%, var(--info) 46%, var(--info) 55%, transparent 55%),
+  linear-gradient(90deg, var(--info) 1%, transparent 1%, transparent 99%, var(--info) 99%);
+}
