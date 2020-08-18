@@ -16,7 +16,7 @@ export const Problem = ({localAppSettings, classList, problem, checkAnswer}) => 
         type={'text'}
         inputMode='decimal'
         className={cn(s.answerField, currentColorTheme)}
-        pattern={checkAnswer ? `^${problem.answer}$` : null}
+        pattern={checkAnswer ? `^${problem.answer.toString().replace('.', '[.,]')}$` : null}
         value={answerFieldValue}
         onChange={(e)=>{ setAnswerFieldValue(e.target.value) }}
       />)
