@@ -41,8 +41,8 @@ export const ProblemsViewer = ({localAppSettings}) => {
 
   /// PAYLOAD ///
   return (
-    <div>
-        <form className={s.flexContainer} style={{fontSize: (localAppSettings.problemsTextSize * 0.2 + 1) + 'em'}}>
+    <div style={{fontSize: (localAppSettings.problemsTextSize * 0.2 + 1) + 'em'}}>
+        <form className={s.flexContainer} >
           {problemsList.map((problem, i) => {
             return <Problem key={i} checkAnswer={checkAnswer} problem={problem} localAppSettings={localAppSettings} classList={s.flexItem}/>
             })
