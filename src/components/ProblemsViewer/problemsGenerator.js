@@ -43,6 +43,9 @@ export const problemsGenerator = (options = defaultGeneratorOptions) => {
   ///region SECONDARY FUNCTIONS ///
   const getRandomIntInclusive = (min, max) => {
 
+    min = parseInt(min)
+    max = parseInt(max)
+
     if (min > max) {
       [min, max] = [max, min] // swap values
     }
@@ -53,6 +56,9 @@ export const problemsGenerator = (options = defaultGeneratorOptions) => {
   }
 
   const getRandomNumber = (min, max) => {
+
+    min = parseInt(min)
+    max = parseInt(max)
 
     if (min > max) {
       [min, max] = [max, min] // swap values
