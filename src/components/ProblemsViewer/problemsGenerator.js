@@ -62,15 +62,19 @@ export const problemsGenerator = (options = defaultGeneratorOptions) => {
   }
 
   const newOperand = () => {
-    let operand = 1
-    if (options.useDecimalFractions && !options.useCommonFractions) {
-      operand = getRandomNumber(options.minOperandValue, options.maxOperandValue)
-    } else if (!options.useDecimalFractions && options.useCommonFractions) {
+    let operand = 0
 
-    } else if (options.useDecimalFractions && options.useCommonFractions) {
+    // the operand must be not zero
+    while (operand === 0) {
+      if (options.useDecimalFractions && !options.useCommonFractions) {
+        operand = getRandomNumber(options.minOperandValue, options.maxOperandValue)
+      } else if (!options.useDecimalFractions && options.useCommonFractions) {
 
-    } else {
-      operand = getRandomIntInclusive(options.minOperandValue, options.maxOperandValue)
+      } else if (options.useDecimalFractions && options.useCommonFractions) {
+
+      } else {
+        operand = getRandomIntInclusive(options.minOperandValue, options.maxOperandValue)
+      }
     }
 
     operand = +(operand.toFixed(3).replace(/\.?0+$/, ''))
