@@ -7,7 +7,7 @@ const defaultGeneratorOptions = {
   , useDecimalFractions: false
   , useCommonFractions : false
   , useOperations      : {
-    useAddition        : true
+      useAddition      : true
     , useSubtraction   : false
     , useMultiplication: false
     , useDivision      : false
@@ -34,7 +34,7 @@ const defaultGeneratorOptions = {
  *         {Number} problems[].answer - calculated value of problem
  */
 export const problemsGenerator = (options = defaultGeneratorOptions) => {
-  if (options.quantity < 1){
+  if (options.quantity < 1) {
     return []
   }
   let q = options.quantity
@@ -64,16 +64,13 @@ export const problemsGenerator = (options = defaultGeneratorOptions) => {
   const newOperand = () => {
     let operand = 1
     if (options.useDecimalFractions && !options.useCommonFractions) {
-      operand =  getRandomNumber(options.minOperandValue, options.maxOperandValue)
-    }
-    else if (!options.useDecimalFractions && options.useCommonFractions){
+      operand = getRandomNumber(options.minOperandValue, options.maxOperandValue)
+    } else if (!options.useDecimalFractions && options.useCommonFractions) {
 
-    }
-    else if (options.useDecimalFractions && options.useCommonFractions) {
+    } else if (options.useDecimalFractions && options.useCommonFractions) {
 
-    }
-    else {
-      operand =  getRandomIntInclusive(options.minOperandValue, options.maxOperandValue)
+    } else {
+      operand = getRandomIntInclusive(options.minOperandValue, options.maxOperandValue)
     }
 
     operand = +(operand.toFixed(3).replace(/\.?0+$/, ''))
@@ -102,24 +99,24 @@ export const problemsGenerator = (options = defaultGeneratorOptions) => {
     let operationIndex = getRandomOperation()
 
     let problem = {
-      problem: null
+      problem : null
       , answer: null
-      , op1: newOperand()
-      , op2: newOperand()
+      , op1   : newOperand()
+      , op2   : newOperand()
     }
 
     switch (operationIndex) {
       case 1:
-          problem.answer = problem.op1 - problem.op2
-          problem.problem = problem.op1 + ' - ' + problem.op2 + ' = '
+        problem.answer = problem.op1 - problem.op2
+        problem.problem = problem.op1 + ' - ' + problem.op2 + ' = '
         break
       case 2:
-          problem.answer = problem.op1 * problem.op2
-          problem.problem = problem.op1 + ' * ' + problem.op2 + ' = '
+        problem.answer = problem.op1 * problem.op2
+        problem.problem = problem.op1 + ' * ' + problem.op2 + ' = '
         break
       case 3:
-          problem.answer = problem.op1 / problem.op2
-        // }
+        problem.answer = problem.op1 / problem.op2
+        problem.problem = `${problem.op1} / ${problem.op2} = `
         break
       case 0:
       default:
@@ -133,7 +130,7 @@ export const problemsGenerator = (options = defaultGeneratorOptions) => {
     // convert to cyrillic notation
     if (options.inCyrillicNotation) {
       problem.answer = toCyrillicNotation(problem.answer)
-      problem.problem = problem.problem.split(' ').map((el, i) => (i === 1) || (i === 3) ? el : toCyrillicNotation(el) ).join(' ')
+      problem.problem = problem.problem.split(' ').map((el, i) => (i === 1) || (i === 3) ? el : toCyrillicNotation(el)).join(' ')
     }
 
     return problem
