@@ -1,3 +1,19 @@
+import toCyrillicNotation from "../../utils/convertNumbersToCyrillicNotation";
+
+const defaultGeneratorOptions = {
+  quantity             : 5
+  , minOperandValue    : 0
+  , maxOperandValue    : 10
+  , useDecimalFractions: false
+  , useCommonFractions : false
+  , useOperations      : {
+    useAddition        : true
+    , useSubtraction   : false
+    , useMultiplication: false
+    , useDivision      : false
+  }
+  , inCyrillicNotation : false
+}
 /**
  * Generate some quantity arithmetic problems
  * @param {Object} options
@@ -6,6 +22,7 @@
  * @param {number} options.maxOperandValue
  * @param {Boolean} options.useDecimalFractions
  * @param {Boolean} options.useCommonFractions
+ * @param {Boolean} options.inCyrillicNotation
  * @param {Object} options.useOperations
  * @param {Boolean} options.useOperations.useAddition
  * @param {Boolean} options.useOperations.useSubtraction
@@ -16,7 +33,7 @@
  *         {String} problems[].problem - condition of problem
  *         {Number} problems[].answer - calculated value of problem
  */
-export const problemsGenerator = (options) => {
+export const problemsGenerator = (options = defaultGeneratorOptions) => {
   if (options.quantity < 1){
     return []
   }
@@ -84,34 +101,40 @@ export const problemsGenerator = (options) => {
 
     let operationIndex = getRandomOperation()
 
-    let op1 = newOperand()
-    let op2 = newOperand()
     let problem = {
       problem: null
       , answer: null
+      , op1: newOperand()
+      , op2: newOperand()
     }
 
     switch (operationIndex) {
       case 1:
-        problem.answer = op1 - op2
-        problem.problem = `${op1} - ${op2} = `
+          problem.answer = problem.op1 - problem.op2
+          problem.problem = problem.op1 + ' - ' + problem.op2 + ' = '
         break
       case 2:
-        problem.answer = op1 * op2
-        problem.problem = `${op1} * ${op2} = `
+          problem.answer = problem.op1 * problem.op2
+          problem.problem = problem.op1 + ' * ' + problem.op2 + ' = '
         break
       case 3:
-        problem.answer = op1 / op2
-        problem.problem = `${op1} / ${op2} = `
+          problem.answer = problem.op1 / problem.op2
+        // }
         break
       case 0:
       default:
-        problem.answer = op1 + op2
-        problem.problem = `${op1} + ${op2} = `
+        problem.answer = problem.op1 + problem.op2
+        problem.problem = `${problem.op1} + ${problem.op2} = `
     }
 
     // remove unnecessary zeros
     problem.answer = problem.answer.toFixed(3).replace(/\.?0+$/, '')
+
+    // convert to cyrillic notation
+    if (options.inCyrillicNotation) {
+      problem.answer = toCyrillicNotation(problem.answer)
+      problem.problem = problem.problem.split(' ').map((el, i) => (i === 1) || (i === 3) ? el : toCyrillicNotation(el) ).join(' ')
+    }
 
     return problem
   }
