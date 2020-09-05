@@ -12,8 +12,8 @@ export const ProblemsViewer = ({localAppSettings, setOSK}) => {
   /// VARIABLES ///
   let problemsOptions = {
     quantity             : parseInt(localAppSettings.numberOfProblemsPerPage)
-    , minOperandValue    : localAppSettings.minOperandValue
-    , maxOperandValue    : localAppSettings.maxOperandValue
+    , minOperandValue    : parseInt(localAppSettings.minOperandValue)
+    , maxOperandValue    : parseInt(localAppSettings.maxOperandValue)
     , useDecimalFractions: localAppSettings.useDecimalFractions
     , useCommonFractions : localAppSettings.useCommonFractions
     , useOperations      :

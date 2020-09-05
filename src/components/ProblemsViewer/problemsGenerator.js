@@ -34,32 +34,40 @@ const defaultGeneratorOptions = {
  *         {Number} problems[].answer - calculated value of problem
  */
 export const problemsGenerator = (options = defaultGeneratorOptions) => {
-  if (options.quantity < 1) {
-    return []
+  /// Check Input ///
+  options.quantity = parseInt(options.quantity)
+  if (isNaN(options.quantity) || options.quantity < 1) {
+    options.quantity = defaultGeneratorOptions.quantity
   }
+
+  options.minOperandValue = parseInt(options.minOperandValue)
+  if (isNaN(options.minOperandValue)) {
+    options.minOperandValue = defaultGeneratorOptions.minOperandValue
+  }
+
+  options.maxOperandValue = parseInt(options.maxOperandValue)
+  if (isNaN(options.maxOperandValue)) {
+    options.maxOperandValue = defaultGeneratorOptions.maxOperandValue
+  }
+
+  if (options.minOperandValue === 0 && options.maxOperandValue === 0) {
+    options.maxOperandValue++
+  }
+
+  /// VARIABLES ///
   let q = options.quantity
   let problemsList = new Array(q)
 
-  ///region SECONDARY FUNCTIONS ///
+  /// region SECONDARY FUNCTIONS ///
   const getRandomIntInclusive = (min, max) => {
-
-    min = parseInt(min)
-    max = parseInt(max)
-
     if (min > max) {
       [min, max] = [max, min] // swap values
     }
 
-    min = Math.ceil(min);
-    max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
   }
 
   const getRandomNumber = (min, max) => {
-
-    min = parseInt(min)
-    max = parseInt(max)
-
     if (min > max) {
       [min, max] = [max, min] // swap values
     }
