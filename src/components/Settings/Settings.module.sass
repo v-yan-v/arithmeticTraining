@@ -1,4 +1,5 @@
-$headerFontSize: 2.0rem
+$headerFontSize: 1.0rem
+$settingsIconFontSize: 2rem
 
 .settings
   background-color: antiquewhite
@@ -9,9 +10,13 @@ $headerFontSize: 2.0rem
   text-align: right
   width: 3em
 
-.headerButton
+.settingsButton
   font-size: $headerFontSize
   font-weight: 650
 
-.headerIcon
-  height: $headerFontSize
+.settingsIcon
+  height: $settingsIconFontSize
+
+@media screen and (max-width: 770px)
+  .settingsCaption
+    display: none

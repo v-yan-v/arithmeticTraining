@@ -5,3 +5,22 @@
   text-align: right;
   width: 4rem;
   }
+
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+@media screen and (max-width: 770px){
+  .header h1 {
+    font-size: 1.8rem;
+  }
+}
+
+@media screen and (max-width: 450px){
+  .header h1 {
+    font-size: 1.5rem;
+  }
+}

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Settings} from "./components/Settings/Settings";
+import {Settings, SettingsButton} from "./components/Settings/Settings";
 import {ProblemsViewer} from "./components/ProblemsViewer/ProblemsViewer";
 import './App.scss'
 import {defaultAppSettings} from "./constantsAndDefaults";
@@ -34,6 +34,10 @@ function App() {
     <div className={'container' + ' ' + currentColorTheme}
       onClick={handleClick}
     >
+      <header className={'header'}>
+        <h1>Тренировка арифметики</h1>
+        <SettingsButton localAppSettings={localAppSettings} />
+      </header>
       <Settings localAppSettings={localAppSettings} setLocalAppSettings={setLocalAppSettings} />
       <ProblemsViewer localAppSettings={localAppSettings} setOSK={setOSK} />
       { localAppSettings.displayNumbersInCyrillicNotation

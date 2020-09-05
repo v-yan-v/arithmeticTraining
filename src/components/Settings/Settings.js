@@ -2,6 +2,38 @@ import React from "react";
 import s from './Settings.module.sass'
 import cn from '../../utils/classNamesConcatenator.js'
 
+export const SettingsButton = ({localAppSettings}) => {
+  let currentColorTheme = localAppSettings.isColorThemeDark ? 'bg-dark text-info' : 'bg-light text-dark'
+
+  const handleSettingsClick = (e) => {
+    //  как-то оно на одних классах из коробки не работает, а подключать ЖС код от бутстрапа ради одной функции не охота (тем более что он сам не подключился а разбираться влом)
+    const collapseBlock = document.getElementById(e.target.closest('.btn').dataset.target)
+
+    if (collapseBlock.classList.contains('show')) {
+      collapseBlock.classList.remove('show')
+      e.target.setAttribute('aria-expanded', 'false')
+    }
+    else {
+      collapseBlock.classList.add('show')
+      e.target.setAttribute('aria-expanded', 'true')
+    }
+  }
+
+  return (
+    <button
+      className={cn('btn',  s.settingsButton, currentColorTheme)}
+      type="button"
+      data-toggle="collapse"
+      data-target="settingsForm"
+      aria-expanded="false"
+      aria-controls="settingsForm"
+      onClick={handleSettingsClick}
+    >
+      <img src="./settings-icons8.svg" alt="settings icon" className={s.settingsIcon} aria-hidden/>
+      <span className={s.settingsCaption}>Настройки</span>
+    </button>
+  )
+}
 
 export const Settings = ({localAppSettings, setLocalAppSettings}) => {
 
@@ -58,19 +90,6 @@ export const Settings = ({localAppSettings, setLocalAppSettings}) => {
   }
 
 
-  const handleSettingsClick = (e) => {
-  //  как-то оно на одних классах из коробки не работает, а подключать ЖС код от бутстрапа ради одной функции не охота (тем более что он сам не подключился а разбираться влом)
-    const collapseBlock = document.getElementById(e.target.dataset.target)
-
-    if (collapseBlock.classList.contains('show')) {
-      collapseBlock.classList.remove('show')
-      e.target.setAttribute('aria-expanded', 'false')
-    }
-    else {
-      collapseBlock.classList.add('show')
-      e.target.setAttribute('aria-expanded', 'true')
-    }
-  }
 
   // in React onChange and onInput are the same, so I do this onBlur
   const fixInputedChanges = (e) => {
@@ -89,12 +108,6 @@ export const Settings = ({localAppSettings, setLocalAppSettings}) => {
 
   return (
     <div className={cn(s.settings, currentColorTheme)}>
-
-        <button className={cn('btn', 'btn-block', s.headerButton, currentColorTheme)} type="button" data-toggle="collapse" data-target="settingsForm"
-              aria-expanded="false" aria-controls="settingsForm" onClick={handleSettingsClick}>
-          <img src="./settings-icons8.svg" alt="settings icon" className={s.headerIcon} aria-hidden/>
-          Настройки
-      </button>
 
       <form id='settingsForm' className='collapse '>
         <div className='form-row'>
