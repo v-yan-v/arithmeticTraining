@@ -4,7 +4,7 @@ import s from './ProblemsViewer.module.sass'
 import {problemsGenerator} from "./problemsGenerator";
 import cn from "../../utils/classNamesConcatenator";
 
-export const ProblemsViewer = ({localAppSettings}) => {
+export const ProblemsViewer = ({localAppSettings, setOSK}) => {
 
   /// STYLES ///
   let btnColorTheme = localAppSettings.isColorThemeDark ? 'btn-outline-info' : 'btn-outline-secondary'
@@ -44,7 +44,7 @@ export const ProblemsViewer = ({localAppSettings}) => {
     <div style={{fontSize: (localAppSettings.problemsTextSize * 0.2 + 1) + 'em'}}>
         <form className={s.flexContainer} >
           {problemsList.map((problem, i) => {
-            return <Problem key={i} checkAnswer={checkAnswer} problem={problem} localAppSettings={localAppSettings} classList={s.flexItem}/>
+            return <Problem key={i} checkAnswer={checkAnswer} problem={problem} localAppSettings={localAppSettings} classList={s.flexItem}  setOSK={setOSK}/>
             })
           }
       </form>

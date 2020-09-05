@@ -4,6 +4,7 @@ import {ProblemsViewer} from "./components/ProblemsViewer/ProblemsViewer";
 import './App.scss'
 import {defaultAppSettings} from "./constantsAndDefaults";
 import {isAppVersionLess} from "./utils/isAppVersionLess";
+import CyrillicNumbersKeyboard from "./components/Keyboard/CyrillicNumbersKeyboard";
 
 function App() {
 
@@ -20,10 +21,24 @@ function App() {
 
   let currentColorTheme = localAppSettings.isColorThemeDark ? 'bg-dark text-info' : 'bg-light text-dark'
 
+  // on screen keyboard
+  const [OSK, setOSK] = useState({showOSK: false, inputNode: null})
+
+  function handleClick(evt) {
+    if (!evt.target.closest('.keyboard') && evt.target.tagName !== 'INPUT'){
+      setOSK({showOSK: false, inputNode: null})
+    }
+  }
+
   return (
-    <div className={'container' + ' ' + currentColorTheme}>
+    <div className={'container' + ' ' + currentColorTheme}
+      onClick={handleClick}
+    >
       <Settings localAppSettings={localAppSettings} setLocalAppSettings={setLocalAppSettings} />
-      <ProblemsViewer localAppSettings={localAppSettings} />
+      <ProblemsViewer localAppSettings={localAppSettings} setOSK={setOSK} />
+      { localAppSettings.displayNumbersInCyrillicNotation
+        && OSK.showOSK
+        && <CyrillicNumbersKeyboard inputNode={OSK.inputNode}  isCyrillicNumbers={true} /> }
     </div>
   );
 }
