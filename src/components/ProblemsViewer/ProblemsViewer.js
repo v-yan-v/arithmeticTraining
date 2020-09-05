@@ -48,10 +48,10 @@ export const ProblemsViewer = ({localAppSettings, setOSK}) => {
             })
           }
       </form>
-      <div className={s.flexContainer}>
-        <button onClick={handleNewProblemsClick} className={cn('btn', btnColorTheme)}>Новые примеры</button>
+      <div className={cn(s.flexContainer, s.paddingBottom)}>
+        <button onClick={handleNewProblemsClick} className={cn('btn', btnColorTheme, s.marginTop)}>Новые примеры</button>
         {localAppSettings.inputsForTestAnswer ?
-          <button onClick={() => { toggleChekAnswer(!checkAnswer) }} className={cn('btn', btnColorTheme)}>
+          <button onClick={() => { toggleChekAnswer(!checkAnswer) }} className={cn('btn', btnColorTheme, s.marginTop)}>
             {checkAnswer ? 'Не показывать' : 'Показать'} не правильные
           </button>
           : ''
